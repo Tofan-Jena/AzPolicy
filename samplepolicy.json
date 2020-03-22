@@ -1,0 +1,35 @@
+{
+    "parameters": {
+        "effect": {
+            "type": "String",
+            "metadata": {
+                "displayName": "Effect",
+                "description": "Enable or disable the execution of the policy"
+            },
+            "allowedValues": [
+                "Audit",
+                "Disabled",
+                "Deny"
+            ],
+            "defaultValue": "Audit"
+        }
+    },
+    "policyRule": {
+        "if": {
+            "allOf": [
+                
+                {
+                    "field": "kind",
+                    "like": "app*"
+                },
+                {
+                    "field": "Type",
+                    "equals": "Microsoft.Web/sites/ftpsState"
+                }
+            ]
+        },
+        "then": {
+            "effect": "[parameters('effect')]"
+        }
+    }
+}
